@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+h1 {
+  font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+ul {
+  margin-right: "20px";
+}
+
+.divDemo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
