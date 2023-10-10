@@ -1,0 +1,11 @@
+select {
+    margin: 5px;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+select:hover {
+    border: 1px solid #4dabf5;
+}

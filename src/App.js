@@ -1,23 +1,22 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import clipboardCopy from 'clipboard-copy';
-import React, { useState, useEffect } from 'react';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import React, { useState } from 'react';
+import Select from '../src/components/Select';
+import Checkbox from '../src/components/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import CloseIcon from '@mui/icons-material/Close';
-import CheckBoxRounded from '@mui/icons-material/CheckBoxRounded';
-import CheckBoxOutlineBlankRounded from '@mui/icons-material/CheckBoxOutlineBlankRounded';
-import CheckBoxSharp from '@mui/icons-material/CheckBoxSharp';
-import CheckBoxOutlineBlankSharp from '@mui/icons-material/CheckBoxOutlineBlankSharp';
+import clipboardCopy from 'clipboard-copy';
+// import FormGroup from '@mui/material/FormGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import CheckBoxRounded from '@mui/icons-material/CheckBoxRounded';
+// import CheckBoxOutlineBlankRounded from '@mui/icons-material/CheckBoxOutlineBlankRounded';
+// import CheckBoxSharp from '@mui/icons-material/CheckBoxSharp';
+// import CheckBoxOutlineBlankSharp from '@mui/icons-material/CheckBoxOutlineBlankSharp';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
+import ContentCopy from '@mui/icons-material/ContentCopy';
+import CloseIcon from '@mui/icons-material/Close';
 
 function App() {
   const [selectedMode, setSelectedMode] = useState('0');
@@ -34,70 +33,22 @@ function App() {
   const [isCustomText, setIsCustomText] = useState(false);
 
   const getDivDemoStyle = () => {
-    if (selectedMode === '2') {
-      return {
-        backgroundColor: 'black',
-      };
-    } else if (selectedMode === '3') {
-      return {
-        backgroundColor: 'black',
-      };
-    } else {
-      return {
-        backgroundColor: 'white',
-      };
-    }
+    return {
+      backgroundColor: selectedMode === '2' || selectedMode === '3' ? 'black' : '',
+    };
   };
 
   const getLabelColorStyle = () => {
-    if (selectedMode === '2') {
-      return {
-        color: 'white',
-      };
-    } else if (selectedMode === '3') {
-      return {
-        color: 'yellow',
-      };
-    } else {
-      return {
-        color: 'initial',
-      };
-    }
+    return {
+      color: selectedMode === '2' ? '#fff' : selectedMode === '3' ? 'yellow' : '',
+    };
   };
 
   const getBoxColorStyle = () => {
-    if (selectedMode === '2') {
-      return {
-        color: '#4dabf5',
-      };
-    } else if (selectedMode === '3') {
-      return {
-        color: 'yellow',
-      };
-    } else {
-      return {
-        color: '',
-      };
-    }
+    return {
+      color: selectedMode === '2' ? '#4dabf5' : selectedMode === '3' ? 'yellow' : '',
+    };
   };
-
-
-  useEffect(() => {
-
-  }, [selectedMode]);
-
-  useEffect(() => {
-
-  }, [selectedShape]);
-
-  useEffect(() => {
-
-  }, [selectedSize]);
-
-  useEffect(() => {
-
-  }, [selectedDirect]);
-
 
 
   const handleModeChange = (event) => {
@@ -137,6 +88,32 @@ function App() {
   };
 
 
+  const modeOptions = [
+    { label: 'Modes', value: '0' },
+    { label: 'Light', value: '1' },
+    { label: 'Dark', value: '2' },
+    { label: 'High Contrast', value: '3' },
+  ];
+
+  const shapeOptions = [
+    { label: 'Shapes', value: '0' },
+    { label: 'Round', value: '1' },
+    { label: 'Sharp', value: '2' },
+  ];
+
+  const sizeOptions = [
+    { label: 'Size', value: '0' },
+    { label: 'Medium', value: '1' },
+    { label: 'Small', value: '2' },
+  ];
+
+  const directionOptions = [
+    { label: 'Direction', value: '0' },
+    { label: 'Right to Left', value: '1' },
+    { label: 'Left to Right', value: '2' },
+  ];
+
+
   const copyToClipboard = () => {
     const codeArea = document.querySelector('.codeArea');
     if (codeArea) {
@@ -168,136 +145,179 @@ function App() {
     </React.Fragment>
   );
 
-
-
   return (
     <div>
-      <div class="w-75 p-3 bg-light">
-        <nav class="navbar navbar-light bg-light">
-          <ul class="nav">
-            <li class="nav-item select">
-              <select
-                className="custom-select"
+      <div className="w-75 p-3 bg-light">
+        <nav className="navbar navbar-light bg-light">
+          <ul className="nav">
+            <li className="nav-item select">
+              <Select
                 id="modeSelect"
-                onChange={handleModeChange}
                 value={selectedMode}
-              >
-                <option selected>Modes</option>
-                <option value="1">Light</option>
-                <option value="2">Dark</option>
-                <option value="3">High Contrast</option>
-              </select>
+                onChange={handleModeChange}
+                options={modeOptions}
+              />
             </li>
-            <li class="nav-item select">
-              <select
-                className="custom-select"
+            <li className="nav-item select">
+              <Select
                 id="shapeSelect"
-                onChange={handleShapeChange}
                 value={selectedShape}
-              >
-                <option selected>Shapes</option>
-                <option value="1">Round</option>
-                <option value="2">Sharp</option>
-              </select>
+                onChange={handleShapeChange}
+                options={shapeOptions}
+              />
             </li>
-            <li class="nav-item select">
-              <select
-                className="custom-select"
+            <li className="nav-item select">
+              <Select
                 id="densitySelect"
-                onChange={handleSizeChange}
                 value={selectedSize}
-              >
-                <option selected>Size</option>
-                <option value="1">Medium</option>
-                <option value="2">Small</option>
-              </select>
+                onChange={handleSizeChange}
+                options={sizeOptions}
+              />
             </li>
-            <li class="nav-item select">
-              <select
-                class="custom-select"
+            <li className="nav-item select">
+              <Select
                 id="directionSelect"
-                onChange={handleDirectChange}
                 value={selectedDirect}
-              >
-                <option selected>Direction</option>
-                <option value="1">Right to Left</option>
-                <option value="2">Left to Right</option>
-              </select>
+                onChange={handleDirectChange}
+                options={directionOptions}
+              />
             </li>
           </ul>
         </nav>
 
-        <div class="d-flex bd-highlight">
-          <div class="p-2 flex-grow-1 bd-highlight divDemo" style={{ height: "450px", backgroundColor: "white" }}>
-
-            <div class="divDemo" style={{ height: "450px", width: "860px", backgroundColor: "white", ...getDivDemoStyle() }}>
-              <FormGroup>
-                <FormControlLabel
-                  labelPlacement={selectedDirect === '2' ? 'start' : 'end'}
-                  disabled={!isLabelCheckboxEnabled}
-                  style={{ color: isCustomChecked ? 'purple' : getLabelColorStyle().color }}
-                  control={
-                    <Checkbox
-                      defaultChecked
-                      style={{ ...getBoxColorStyle() }}
-                      size={selectedSize === '2' ? 'small' : 'medium'}
-                      icon={isIconChecked ? (<FavoriteBorder style={{ color: isCustomChecked ? 'purple' : '' }} />) : (selectedShape === '2' ? (<CheckBoxOutlineBlankSharp style={{ color: isCustomChecked ? 'purple' : '' }} />) : (<CheckBoxOutlineBlankRounded style={{ color: isCustomChecked ? 'purple' : '' }} />))}
-                      checkedIcon={isIconChecked ? (<Favorite style={{ color: isCustomChecked ? 'purple' : '' }} />) : (selectedShape === '2' ? (<CheckBoxSharp style={{ color: isCustomChecked ? 'purple' : '' }} />) : (<CheckBoxRounded style={{ color: isCustomChecked ? 'purple' : '' }} />))}
+        <div className="d-flex bd-highlight">
+          <div
+            className="p-2 flex-grow-1 bd-highlight divDemo"
+            style={{ height: '450px', backgroundColor: 'white' }}
+          >
+            <div
+              className="divDemo"
+              style={{
+                height: '450px',
+                width: '860px',
+                backgroundColor: 'white',
+                ...getDivDemoStyle(),
+              }}
+            >
+              <Checkbox
+                label={isLabelVisible && 'Label'}
+                labelPlacement={
+                  selectedDirect === '2' ? 'left' : 'right'
+                }
+                disabled={!isLabelCheckboxEnabled}
+                style={{
+                  ...getBoxColorStyle(),
+                  color: isCustomChecked
+                    ? 'purple'
+                    : getLabelColorStyle(),
+                }}
+                icon={
+                  isIconChecked ? (
+                    <FavoriteBorder
+                      style={{
+                        color: isCustomChecked
+                          ? 'purple'
+                          : '',
+                      }}
                     />
-                  }
-                  label={isLabelVisible && "Label"}
-                />
-              </FormGroup>
+                  ) : selectedShape === '2' ? (
+                    <Checkbox
+                      style={{
+                        fontSize: isCustomChecked
+                          ? '5px'
+                          : '20px',
+                      }}
+                    />
+                  ) : (
+                    <Checkbox
+                      style={{
+                        color: isCustomChecked
+                          ? 'purple'
+                          : '',
+                      }}
+                    />
+                  )
+                }
+                checked={
+                  isIconChecked ? (
+                    <Favorite
+                      style={{
+                        color: isCustomChecked
+                          ? 'purple'
+                          : '',
+                      }}
+                    />
+                  ) : selectedShape === '2' ? (
+                    <Checkbox
+                      checked
+                      style={{
+                        color: isCustomChecked
+                          ? 'purple'
+                          : '',
+                      }}
+                    />
+                  ) : (
+                    <Checkbox
+                      checked
+                      style={{
+                        color: isCustomChecked
+                          ? 'purple'
+                          : '',
+                      }}
+                    />
+                  )
+                }
+              />
             </div>
-
           </div>
 
-          <div class="p-2 bd-highlight">
-            <p style={{ fontSize: "16px", color: "gray" }}>MODIFIERS</p>
-            <FormGroup>
-              <FormControlLabel
-                disabled={!isIconChecked}
-                control={
-                  <Checkbox
-                    onChange={handleCustomColorChange}
-                  />
-                }
-                label="Custom Color"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked
-                    onChange={handleLabelCheckboxChange}
-                  />
-                }
-                label="Label"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleDisabledChange}
-                  />
-                }
-                label="Disabled"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleIconCheckboxChange}
-                  />
-                }
-                label="Icon"
-              />
-            </FormGroup>
+          <div className="p-2 bd-highlight">
+
+            <p style={{ fontSize: '16px', color: 'gray' }}>MODIFIERS</p>
+
+            <Checkbox
+              label="Custom Color"
+              disabled={!isIconChecked}
+              onChange={handleCustomColorChange}
+            />
+
+
+            <Checkbox
+              label="Label"
+              onChange={handleLabelCheckboxChange}
+            />
+
+
+            <Checkbox
+              label="Disabled"
+              onChange={handleDisabledChange}
+            />
+
+
+            <Checkbox
+              label="Icon"
+              onChange={handleIconCheckboxChange}
+            />
+
           </div>
         </div>
       </div>
-      <div class="w-75 p-3 bg-light" style={{ height: "250px", backgroundColor: "white", display: "block" }}>
-        <div class="d-flex">
-          <div class="codeArea flex-grow-1" style={{ height: "200px", backgroundColor: "white", display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <ol style={{ fontSize: "16px", margin: "20px" }}>
+      <div
+        className="w-75 p-3 bg-light"
+        style={{ height: '250px', backgroundColor: 'white', display: 'block' }}
+      >
+        <div className="d-flex">
+          <div
+            className="codeArea flex-grow-1"
+            style={{
+              height: '200px',
+              backgroundColor: 'white',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <ol style={{ fontSize: '16px', margin: '20px' }}>
                 <li><span style={{ color: "#4dabf5", marginLeft: "20px" }}>{'<Checkbox'}</span></li>
                 <li><span style={{ color: "#4dabf5", marginLeft: "30px" }}>defaultChecked</span></li>
                 {!isCheckboxText && (
@@ -311,7 +331,7 @@ function App() {
                   <li><span style={{ color: "#4dabf5", marginLeft: "30px" }}>label="Label"</span></li>
                 )}
                 {isCustomText && (
-                  <li><span style={{ color: "#4dabf5", marginLeft: "30px" }}>color="colorPurple"</span></li>
+                  <li><span style={{ color: "#4dabf5", marginLeft: "30px" }}>customColor="colorPurple"</span></li>
                 )}
                 <li><span style={{ color: "#4dabf5", marginLeft: "20px" }}>{'/>'}</span></li>
               </ol>
@@ -319,19 +339,16 @@ function App() {
                 <IconButton
                   aria-label="copiar"
                   onClick={copyToClipboard}
-                  style={{ alignSelf: "flex-start", margin: "20px" }}>
-                  <ContentCopyIcon />
+                  style={{ alignSelf: 'flex-start', margin: '20px' }}
+                >
+                  <ContentCopy />
                 </IconButton>
-                <Snackbar 
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                action={action}>
-                  <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                    Copiado com sucesso!
-                  </Alert>
-                </Snackbar>
               </Tooltip>
+              <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} action={action}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                  Copiado com sucesso!
+                </Alert>
+              </Snackbar>
             </div>
           </div>
         </div>
@@ -341,4 +358,3 @@ function App() {
 }
 
 export default App;
-
